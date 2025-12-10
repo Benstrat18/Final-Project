@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Tennis Snake</title>
+<style>
+    body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: linear-gradient(#9ee8ff, #ffffff);
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+    }
+
+    #score {
+        font-size: 2em;
+        margin-bottom: 15px;
+        font-weight: bold;
+        color: #003366;
+    }
+
+    #game-area {
+        border: 12px solid #003366;
+        background: #1e8449; /* tennis court green */
+        border-radius: 12px;
+        box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
+
+    #game-over-message {
+        display: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: white;
+        padding: 40px;
+        border-radius: 15px;
+        text-align: center;
+        box-shadow: 0 0 30px rgba(0,0,0,0.9);
+        z-index: 10;
+    }
+
+    #restart-button {
+        padding: 12px 25px;
+        background: #2980b9;
+        color: white;
+        font-size: 1.2em;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+
+    #controls-info {
+        font-size: 1.2em;
+        color: #003366;
+        margin-top: 10px;
+    }
+</style>
+</head>
+<body>
+
+<div id="score">Score: 0</div>
+<canvas id="game-area" width="420" height="420"></canvas>
+<div id="controls-info">Use Arrow Keys to Move • Press P to Pause</div>
+
+<div id="game-over-message">
+    <h2>Game Over!</h2>
+    <div id="final-score"></div>
+    <button id="restart-button">Play Again</button>
+</div>
+
+<script>
+/* ============================
+        BASIC SETUP
+============================= */
+const canvas = document.getElementById("game-area");
+const ctx = canvas.getContext("2d");
+
+const scoreDisplay = document.getElementById("score");
+const finalScoreDisplay = document.getElementById("final-score");
+const gameOverMessage = document.getElementById("game-over-message");
+const restartButton = document.getElementById("restart-button");
+
+const grid = 20;
+let dx, dy, snake, food, obstacles, score;
+let gameLoop;
+let started = false;
+let paused = false;
+let speed = 140; // slower snake
+
+/* ============================
+        INITIALIZE GAME
+============================= */
+function initGame() {
+    snake = [{ x: 200, y: 200 }];
+    dx = grid;
+    dy = 0;
+    score = 0;
+    started = false;
+    paused = false;
+
+    scoreDisplay.textContent = "Score: 0";
+    gameOverMessage.style.display = "none";
+
+    obstacles = generateObstacles();
+    placeFood();
+
+    if (gameLoop) clearInterval(gameLoop);
+    gameLoop = setInterval(loop, speed);
+}
+
+/* ============================
+        OBSTACLES
+============================= */
+function generateObstacles() {
+    return [
+        { x: 6 * grid, y: 6 * grid, type: "racket" },
+        { x: 12 * grid, y: 4 * grid, type: "racket" },
+        { x: 10 * grid, y: 12 * grid, type: "net" }
+    ];
+}
+
+function drawObstacles() {
+    obstacles.forEach(o => {
+        ctx.fillStyle = "#bbbbbb";
+        if (o.type === "racket") {
+            ctx.fillRect(o.x, o.y, grid * 2, grid * 0.5); // handle
+            ctx.beginPath();
+            ctx.arc(o.x + 25, o.y, 15, 0, Math.PI * 2); // racket head
+            ctx.strokeStyle = "white";
+            ctx.stroke();
+        } else {
+            ctx.fillStyle = "white";
+            ctx.fillRect(o.x, o.y, grid * 4, 5); // net
+        }
+    });
+}
+
+/* ============================
+        FOOD (TENNIS BALL)
+============================= */
+function placeFood() {
+    let pos;
+    do {
+        pos = {
+            x: Math.floor(Math.random() * 21) * grid,
+            y: Math.floor(Math.random() * 21) * grid
+        };
+    } while (
+        snake.some(s => s.x === pos.x && s.y === pos.y) ||
+        obstacles.some(o => pos.x >= o.x && pos.x < o.x + 40 && pos.y >= o.y && pos.y < o.y + 20)
+    );
+
+    food = pos;
+}
+
+function drawFood() {
+    ctx.beginPath();
+    ctx.arc(food.x + 10, food.y + 10, 8, 0, Math.PI * 2);
+    ctx.fillStyle = "#ffff55";      // tennis ball yellow
+    ctx.fill();
+    ctx.strokeStyle = "#ddd";
+    ctx.stroke();
+}
+
+/* ============================
+        SNAKE DRAWING
+============================= */
+function drawSnake() {
+    snake.forEach((seg, i) => {
+        ctx.fillStyle = `rgb(${120 - i*5}, ${255}, ${120 - i*5})`;
+        ctx.fillRect(seg.x, seg.y, grid, grid);
+    });
+}
+
+/* ============================
+        MOVE SNAKE
+============================= */
+function moveSnake() {
+    if (!started) return;
+
+    const head = { x: snake[0].x + dx, y: snake[0].y + dy };
+    snake.unshift(head);
+
+    if (head.x === food.x && head.y === food.y) {
+        score++;
+        scoreDisplay.textContent = "Score: " + score;
+        placeFood();
+    } else {
+        snake.pop();
+    }
+}
+
+/* ============================
+        COLLISION DETECTION
+============================= */
+function checkCollision() {
+    const h = snake[0];
+
+    // walls
+    if (h.x < 0 || h.x >= canvas.width || h.y < 0 || h.y >= canvas.height)
+        return true;
+
+    // self
+    for (let i = 1; i < snake.length; i++)
+        if (h.x === snake[i].x && h.y === snake[i].y) return true;
+
+    // obstacles
+    for (let o of obstacles)
+        if (h.x >= o.x && h.x < o.x + 40 && h.y >= o.y && h.y < o.y + 40)
+            return true;
+
+    return false;
+}
+
+/* ============================
+        GAME LOOP
+============================= */
+function loop() {
+    if (paused) return;
+
+    if (checkCollision()) {
+        clearInterval(gameLoop);
+        finalScoreDisplay.textContent = "Final Score: " + score;
+        gameOverMessage.style.display = "block";
+        return;
+    }
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    drawObstacles();
+    moveSnake();
+    drawSnake();
+    drawFood();
+}
+
+/* ============================
+        CONTROLS
+============================= */
+document.addEventListener("keydown", e => {
+    if (!started && ["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].includes(e.key))
+        started = true;
+
+    if (e.key === "p" || e.key === "P") {
+        paused = !paused;
+        if (paused) alert("Game Paused");
+    }
+
+    const up = dy === -grid;
+    const down = dy === grid;
+    const left = dx === -grid;
+    const right = dx === grid;
+
+    if (e.key === "ArrowUp" && !down) dx = 0, dy = -grid;
+    if (e.key === "ArrowDown" && !up) dx = 0, dy = grid;
+    if (e.key === "ArrowLeft" && !right) dx = -grid, dy = 0;
+    if (e.key === "ArrowRight" && !left) dx = grid, dy = 0;
+});
+
+restartButton.addEventListener("click", initGame);
+
+initGame();
+</script>
+</body>
+</html>

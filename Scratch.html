@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tennis Passion Page</title>
+    <link rel="stylesheet" href="css/mystyles.css">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="index.html">Back to Professional Pages</a>
+         <a href="Game.html">Game App</a>
+        <a href="#about">About Tennis</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#video">Video</a>
+        <a href="#tableau">Stats</a>
+        <a href="#top">Top</a>
+    </nav>
+
+    <header class="hero" id="top">
+        <h1 class="hero-title">My Passion for Tennis</h1>
+        <p class="hero-subtitle">Speed • Precision • Strategy • Heart</p>
+    </header>
+
+    <!-- SECTION 1 -->
+    <div class="content-box" id="about">
+        <h2>Why I Love Tennis</h2>
+        <p>
+            Tennis is one of the most dynamic and strategic sports in the world. I love the intensity,
+            the precision, the athleticism, and the mental battles that unfold during every match.
+        </p>
+
+        <ol>
+            <li>Types of Tennis I Enjoy:
+                <ul>
+                    <li>Hard court baseline rallies</li>
+                    <li>Clay court sliding points</li>
+                    <li>Grass court serve & volley</li>
+                </ul>
+            </li>
+            <li>My favorite racquets</li>
+            <li>Skills I am working on:
+                <ul>
+                    <li>Explosive footwork</li>
+                    <li>Kick serves</li>
+                    <li>Backhand down the line</li>
+                </ul>
+            </li>
+        </ol>
+    </div>
+
+    <!-- SECTION 2 -->
+    <div class="gallery-section" id="gallery">
+        <h2>Tennis Action Shot</h2>
+        <img src="tennis.jpg" alt="Tennis action photo" class="main-image">
+        <p class="img-caption">A powerful baseline backhand during a competitive match.</p>
+    </div>
+
+    <!-- EXTRA TENNIS FEATURES -->
+    <div class="facts-box">
+        <h2>Fun Tennis Facts</h2>
+        <ul>
+            <li>The fastest serve ever recorded was 157.2 mph.</li>
+            <li>A tennis ball can bounce up to 53% of its height.</li>
+            <li>Wimbledon has used the same grass mix for decades.</li>
+            <li>Matches used to be played without tiebreakers!</li>
+        </ul>
+    </div>
+
+    <div class="gear-box">
+        <h2>My Favorite Tennis Gear</h2>
+        <p><strong>Racquet:</strong> Babolat Pure Drive</p>
+        <p><strong>Strings:</strong> RPM Blast 16L</p>
+        <p><strong>Shoes:</strong> Nike Vapor Pro 2</p>
+        <p><strong>Grips:</strong> White overgrips (of course)</p>
+    </div>
+
+    <!-- SECTION 3 -->
+    <div class="video-box" id="video">
+        <h2>Favorite Tennis Video</h2>
+        <iframe width="560" height="315" 
+            src="https://www.youtube.com/embed/YqgcykDGB2A?si=3t64-Ah-IECBZ3uA"
+            title="YouTube video player" frameborder="0"
+            allowfullscreen>
+        </iframe>
+    </div>
+
+    <!-- TABLEAU -->
+    <div class="content-box" id="tableau">
+        <h2>Interactive Tennis Stats</h2>
+        <p>Explore real tennis performance data:</p>
+
+        <div class='tableauPlaceholder' id='viz1765408380464' style='position: relative'>
+            <noscript>
+                <a href='#'>
+                    <img alt='Grand Slam Dashboard'
+                        src='https://public.tableau.com/static/images/HQ/HQ3ZP3M88/1_rss.png'>
+                </a>
+            </noscript>
+
+            <object class='tableauViz' style='display:none;'>
+                <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
+                <param name='embed_code_version' value='3' />
+                <param name='path' value='shared&#47;HQ3ZP3M88' />
+                <param name='toolbar' value='no' />
+                <param name='static_image'
+                    value='https://public.tableau.com/static/images/HQ/HQ3ZP3M88/1.png' />
+                <param name='animate_transition' value='yes' />
+                <param name='display_static_image' value='yes' />
+                <param name='display_spinner' value='yes' />
+                <param name='display_overlay' value='yes' />
+                <param name='display_count' value='yes' />
+                <param name='language' value='en-US' />
+            </object>
+        </div>
+
+        <script type='text/javascript'>
+            var divElement = document.getElementById('viz1765408380464');
+            var vizElement = divElement.getElementsByTagName('object')[0];
+            if (divElement.offsetWidth > 800) {
+                vizElement.style.width = '1000px';
+                vizElement.style.height = '800px';
+            } else if (divElement.offsetWidth > 500) {
+                vizElement.style.width = '1000px';
+                vizElement.style.height = '800px';
+            } else {
+                vizElement.style.width = '100%';
+                vizElement.style.height = '1300px';
+            }
+            var scriptElement = document.createElement('script');
+            scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+            vizElement.parentNode.insertBefore(scriptElement, vizElement);
+        </script>
+    </div>
+
+    <footer class="footer">
+        <p>© 2025 My Tennis Hobby Page</p>
+    </footer>
+
+</body>
+
+</html>

@@ -1,0 +1,134 @@
+/* ---------------------------
+   GLOBAL
+---------------------------- */
+body {
+    background-color: #e0f4ff;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #003049;
+    margin: 0;
+    padding: 0;
+}
+
+/* Extra fonts */
+h1, h2 {
+    font-family: "Trebuchet MS", Verdana, sans-serif;
+    color: #023e8a;
+}
+
+p, li {
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: #001219;
+}
+
+/* ---------------------------
+   NAVIGATION
+---------------------------- */
+.navbar {
+    background: #023e8a;
+    padding: 12px;
+    text-align: center;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: bold;
+}
+
+.navbar a:hover {
+    text-decoration: underline;
+}
+
+/* ---------------------------
+   HERO SECTION
+---------------------------- */
+.hero {
+    background: linear-gradient(to bottom right, #90e0ef, #0077b6);
+    padding: 50px;
+    text-align: center;
+    color: white;
+}
+
+.hero-title {
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+
+.hero-subtitle {
+    font-size: 20px;
+    letter-spacing: 2px;
+}
+
+/* ---------------------------
+   CONTENT SECTIONS
+---------------------------- */
+.content-box {
+    background: #caf0f8;
+    padding: 25px;
+    margin: 30px;
+    border-radius: 10px;
+}
+
+/* ---------------------------
+   GALLERY
+---------------------------- */
+.gallery-section {
+    background: #ade8f4;
+    padding: 25px;
+    margin: 30px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.main-image {
+    width: 550px;
+    border-radius: 12px;
+}
+
+.img-caption {
+    margin-top: 10px;
+    font-style: italic;
+}
+
+/* ---------------------------
+   FUN FACTS BOX
+---------------------------- */
+.facts-box {
+    background: #90e0ef;
+    padding: 25px;
+    margin: 30px;
+    border-radius: 10px;
+}
+
+/* ---------------------------
+   GEAR BOX
+---------------------------- */
+.gear-box {
+    background: #48cae4;
+    padding: 25px;
+    margin: 30px;
+    border-radius: 10px;
+}
+
+/* ---------------------------
+   VIDEO BOX
+---------------------------- */
+.video-box {
+    background: #00b4d8;
+    padding: 25px;
+    margin: 30px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+/* ---------------------------
+   FOOTER
+---------------------------- */
+.footer {
+    background: #60c6fe;
+    color: rgba(255, 255, 255, 0.998);
+    text-align: center;
+    padding: 15px;
+    margin-top: 50px;
+}
